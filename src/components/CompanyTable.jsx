@@ -6,11 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useEffect, useState} from 'react';
-import {Box, Toolbar, Typography} from '@mui/material';
-import {getCompanyData} from '../company-data-generator';
+import { useEffect, useState } from 'react';
+import { Box, Toolbar, Typography } from '@mui/material';
+import { getCompanyData } from '../company-data-generator';
 
-function CompanyTable() {
+function CompanyTable({ page }) {
   let [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -19,16 +19,16 @@ function CompanyTable() {
   }, []);
 
   return (
-    <Box mt={20} sx={{width: '100%'}}>
-      <Paper sx={{width: '100%', mb: 2}}>
+    <Box mt={20} sx={{ width: '100%' }}>
+      <Paper sx={{ width: '100%', mb: 2 }}>
         <Toolbar
           sx={{
-            pl: {sm: 2},
-            pr: {xs: 1, sm: 1},
+            pl: { sm: 2 },
+            pr: { xs: 1, sm: 1 },
           }}
         >
           <Typography
-            sx={{flex: '1 1 100%'}}
+            sx={{ flex: '1 1 100%' }}
             variant="h6"
             id="tableTitle"
             component="div"
@@ -38,21 +38,21 @@ function CompanyTable() {
         </Toolbar>
         <TableContainer>
           <Table
-            sx={{minWidth: 500}}
+            sx={{ minWidth: 500 }}
           >
             <TableHead>
               <TableRow>
-                <TableCell width='20%' sx={{fontWeight: 'bold'}}>Company Name</TableCell>
-                <TableCell width='20%' align='right' sx={{fontWeight: 'bold'}}>What they do</TableCell>
-                <TableCell width='30%' align='right' sx={{fontWeight: 'bold'}}>Currency</TableCell>
-                <TableCell width='30%' align='right' sx={{fontWeight: 'bold'}}>Routing number</TableCell>
+                <TableCell width='20%' sx={{ fontWeight: 'bold' }}>Company Name</TableCell>
+                <TableCell width='20%' align='right' sx={{ fontWeight: 'bold' }}>What they do</TableCell>
+                <TableCell width='30%' align='right' sx={{ fontWeight: 'bold' }}>Currency</TableCell>
+                <TableCell width='30%' align='right' sx={{ fontWeight: 'bold' }}>Routing number</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     {row.name}
@@ -61,7 +61,7 @@ function CompanyTable() {
                   <TableCell align="right">{row.currency}</TableCell>
                   <TableCell align="right">{row.routingNumber}</TableCell>
                 </TableRow>
-              ))}
+              )).slice(page*10+1-9,page*10+1)}
             </TableBody>
           </Table>
         </TableContainer>
